@@ -1,9 +1,9 @@
-package com.yu.wrapper.build.impl;
+package com.yu.wrapper.core.impl;
 
-import com.yu.wrapper.build.PostfixBuild;
-import com.yu.wrapper.build.WhereBuild;
-import com.yu.wrapper.build.lambda.LambdaPostfixBuild;
-import com.yu.wrapper.build.lambda.LambdaWhereBuild;
+import com.yu.wrapper.core.PostfixBuild;
+import com.yu.wrapper.core.WhereBuild;
+import com.yu.wrapper.core.lambda.LambdaPostfixBuild;
+import com.yu.wrapper.core.lambda.LambdaWhereBuild;
 
 import java.util.Collection;
 import java.util.function.Consumer;

@@ -1,4 +1,4 @@
-package com.yu.wrapper.build;
+package com.yu.wrapper.core;
 
 public interface PostfixBuild {
     default PostfixBuild groupBy(String column) {

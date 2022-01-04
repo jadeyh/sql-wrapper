@@ -1,6 +1,6 @@
-package com.yu.wrapper.build.lambda;
+package com.yu.wrapper.core.lambda;
 
-import com.yu.wrapper.build.WhereBuild;
+import com.yu.wrapper.core.WhereBuild;
 import com.yu.wrapper.lambdaUtils.SFunction;
 
 import java.util.Collection;

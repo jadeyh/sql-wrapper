@@ -1,6 +1,6 @@
-package com.yu.wrapper.build.lambda;
+package com.yu.wrapper.core.lambda;
 
-import com.yu.wrapper.build.PostfixBuild;
+import com.yu.wrapper.core.PostfixBuild;
 import com.yu.wrapper.lambdaUtils.SFunction;
 
 public interface LambdaPostfixBuild extends PostfixBuild, GetByLambda {

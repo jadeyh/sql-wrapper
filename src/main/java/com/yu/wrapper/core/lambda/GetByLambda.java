@@ -1,9 +1,8 @@
-package com.yu.wrapper.build.lambda;
+package com.yu.wrapper.core.lambda;
 
 import com.yu.wrapper.lambdaUtils.BeanColumnFieldUtil;
 import com.yu.wrapper.lambdaUtils.SFunction;
 
-import java.util.Arrays;
 import java.util.stream.Stream;
 
 public interface GetByLambda {

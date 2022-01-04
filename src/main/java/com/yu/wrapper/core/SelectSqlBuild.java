@@ -1,4 +1,4 @@
-package com.yu.wrapper.build;
+package com.yu.wrapper.core;
 
 public interface SelectSqlBuild {
     String getSqlSelect();

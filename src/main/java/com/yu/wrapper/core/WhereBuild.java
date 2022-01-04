@@ -1,4 +1,4 @@
-package com.yu.wrapper.build;
+package com.yu.wrapper.core;
 
 import java.util.Collection;
 import java.util.function.Consumer;
