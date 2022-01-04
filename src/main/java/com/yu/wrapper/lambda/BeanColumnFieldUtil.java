@@ -55,19 +55,22 @@ public class BeanColumnFieldUtil {
         return getColumnName(getFieldByLambda(func));
     }
 
+    /**
+     * 根据Field获取列名
+     */
     public static String getColumnName(Field field) {
-        if (field.isAnnotationPresent(TableId.class)) {
-            TableId tableId = field.getAnnotation(TableId.class);
-            return tableId.value();
-        } else if (field.isAnnotationPresent(TableField.class)) {
-            TableField tableField = field.getAnnotation(TableField.class);
-            return tableField.value();
-        } else {
-            return StrUtil.toUnderlineCase(field.getName());
+        if (field.isAnnotationPresent(TableColumn.class)) {
+            TableColumn tableColumn = field.getAnnotation(TableColumn.class);
+            if (StrUtil.isNotBlank(tableColumn.value())) {
+                return tableColumn.value();
+            }
         }
+        return StrUtil.toUnderlineCase(field.getName());
     }
 
-    //
+    /**
+     * 根据Lambda获取Field
+     */
     public static <T> Field getFieldByLambda(SFunction<T, ?> func) {
         try {
             SerializedLambda serializedLambda = getFieldSerializedLambda(func);
