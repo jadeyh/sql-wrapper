@@ -1,4 +1,4 @@
-package com.yu.wrapper.core.impl;
+package com.yu.wrapper.core.Wrapper;
 
 import com.yu.wrapper.core.PostfixBuild;
 import com.yu.wrapper.core.WhereBuild;
