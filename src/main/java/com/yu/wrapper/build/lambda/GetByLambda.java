@@ -1,9 +1,20 @@
 package com.yu.wrapper.build.lambda;
 
-import com.yu.wrapper.lambda.SFunction;
+import com.yu.wrapper.lambdaUtils.BeanColumnFieldUtil;
+import com.yu.wrapper.lambdaUtils.SFunction;
+
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 public interface GetByLambda {
-    <T> String getColumnName(SFunction<T, ?> func);
+    default <T> String getColumnName(SFunction<T, ?> func) {
+        return BeanColumnFieldUtil.getColumnNameByLambda(func);
+    }
 
-    <T> String getColumnNames(SFunction<T, ?>... funcs);
+    default <T> String[] getColumnNames(SFunction<T, ?>... funcs) {
+        if (funcs == null || funcs.length == 0) {
+            return null;
+        }
+        return Stream.of(funcs).map(func -> getColumnName(func)).toArray(String[]::new);
+    }
 }

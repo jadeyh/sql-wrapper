@@ -1,7 +1,7 @@
 package com.yu.wrapper.build.lambda;
 
 import com.yu.wrapper.build.PostfixBuild;
-import com.yu.wrapper.lambda.SFunction;
+import com.yu.wrapper.lambdaUtils.SFunction;
 
 public interface LambdaPostfixBuild extends PostfixBuild, GetByLambda {
     default <T> PostfixBuild groupBy(SFunction<T, ?> column) {

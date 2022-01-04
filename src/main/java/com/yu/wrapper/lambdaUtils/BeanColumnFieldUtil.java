@@ -1,6 +1,7 @@
-package com.yu.wrapper.lambda;
+package com.yu.wrapper.lambdaUtils;
 
 import cn.hutool.core.util.StrUtil;
+import com.yu.wrapper.annotation.TableColumn;
 
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Field;
