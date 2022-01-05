@@ -9,6 +9,9 @@ import java.util.Collection;
 import java.util.function.Consumer;
 
 public class LambdaSelectWrapper implements LambdaWhereBuild, LambdaPostfixBuild {
+    
+
+
     @Override
     public WhereBuild eq(boolean condition, String column, Object val) {
         return null;
