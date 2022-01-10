@@ -5,27 +5,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public class SqlSegments {
-    private List<String> whereSql = new ArrayList<>();
+    private List<SqlString> whereSql = new ArrayList<>();
 
-    private List<String> groupBySql = new ArrayList<>();
+    private List<SqlString> groupBySql = new ArrayList<>();
 
-    private List<String> havingSql = new ArrayList<>();
+    private List<SqlString> havingSql = new ArrayList<>();
 
-    private List<String> orderBySql = new ArrayList<>();
+    private List<SqlString> orderBySql = new ArrayList<>();
 
-    public void add(String... segments) {
-        List<String> list = Arrays.asList(segments);
-        String firstSegment = list.get(0);
-        if (MatchSegment.ORDER_BY.match(firstSqlSegment)) {
-            orderBy.addAll(list);
-        } else if (MatchSegment.GROUP_BY.match(firstSqlSegment)) {
-            groupBy.addAll(list);
-        } else if (MatchSegment.HAVING.match(firstSqlSegment)) {
-            having.addAll(list);
+    public void add(SqlString... sqlStrings) {
+        List<SqlString> list = Arrays.asList(sqlStrings);
+        SqlString firstSqlString = list.get(0);
+        if (SqlMatch.ORDER_BY.match(firstSqlString)) {
+            orderBySql.addAll(list);
+        } else if (SqlMatch.GROUP_BY.match(firstSqlString)) {
+            groupBySql.addAll(list);
+        } else if (SqlMatch.HAVING.match(firstSqlString)) {
+            havingSql.addAll(list);
         } else {
-            normal.addAll(list);
+            whereSql.addAll(list);
         }
-        whereSql.add
-        cacheSqlSegment = false;
     }
 }

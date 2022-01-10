@@ -18,7 +18,7 @@ package com.yu.wrapper.core.utils.sqlUtils;
 /**
  * SQL 保留关键字
  */
-public enum SqlKeyword {
+public enum SqlKeyword implements SqlString {
     AND("AND"),
     OR("OR"),
     NOT("NOT"),
@@ -44,7 +44,7 @@ public enum SqlKeyword {
     ASC("ASC"),
     DESC("DESC");
 
-    private String keyword;
+    private final String keyword;
 
     SqlKeyword(String keyword) {
         this.keyword = keyword;
@@ -52,5 +52,10 @@ public enum SqlKeyword {
 
     public String getKeyword() {
         return keyword;
+    }
+
+    @Override
+    public String getSqlString() {
+        return null;
     }
 }
