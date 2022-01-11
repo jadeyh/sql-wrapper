@@ -1,4 +1,4 @@
-package com.yu.wrapper.core.utils.sqlUtils;
+package com.yu.wrapper.core.toolkits.sqlToolkits;
 
 public interface SqlString {
     String getSqlString();

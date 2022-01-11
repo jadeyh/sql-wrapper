@@ -1,4 +1,4 @@
-package com.yu.wrapper.core.utils.lambdaUtils;
+package com.yu.wrapper.core.toolkits.lambdaUtils;
 
 import cn.hutool.core.util.StrUtil;
 import com.yu.wrapper.annotation.TableColumn;

@@ -1,9 +1,12 @@
-package com.yu.wrapper.core.Wrapper;
+package com.yu.wrapper.core.wrapper;
 
 import com.yu.wrapper.core.PostfixBuild;
 import com.yu.wrapper.core.WhereBuild;
 import com.yu.wrapper.core.lambda.LambdaWhereBuild;
-import com.yu.wrapper.core.utils.sqlUtils.SqlSegments;
+import com.yu.wrapper.core.toolkits.sqlToolkits.ParamMap;
+import com.yu.wrapper.core.toolkits.sqlToolkits.SqlKeyword;
+import com.yu.wrapper.core.toolkits.sqlToolkits.SqlSegments;
+import com.yu.wrapper.core.toolkits.sqlToolkits.SqlString;
 
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -11,9 +14,22 @@ import java.util.function.Consumer;
 public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper>, PostfixBuild<LambdaSelectWrapper> {
     protected SqlSegments sqlSegments = new SqlSegments();
 
+    protected ParamMap paramMap = new ParamMap();
+
+    /**
+     * 必要的初始化
+     */
+    protected void init() {
+        sqlSegments = new SqlSegments();
+
+    }
+
     @Override
     public LambdaSelectWrapper eq(boolean condition, String column, Object val) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.EQ, toSqlString(paramMap.putAndGetKey(val)));
+        }
+        return this;
     }
 
     @Override
@@ -154,5 +170,9 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
     @Override
     public LambdaSelectWrapper having(boolean condition, String sqlHaving, Object... params) {
         return null;
+    }
+
+    protected SqlString toSqlString(String s) {
+        return () -> s;
     }
 }

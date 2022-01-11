@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.yu.wrapper.core.utils.sqlUtils;
+package com.yu.wrapper.core.toolkits.sqlToolkits;
 
 /**
  * SQL 保留关键字
