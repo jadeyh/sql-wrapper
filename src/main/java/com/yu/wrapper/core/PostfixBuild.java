@@ -1,48 +1,48 @@
 package com.yu.wrapper.core;
 
-public interface PostfixBuild {
-    default PostfixBuild groupBy(String column) {
+public interface PostfixBuild<ImplClass> {
+    default ImplClass groupBy(String column) {
         return groupBy(true, column);
     }
 
     /**
      * 分组
      */
-    PostfixBuild groupBy(boolean condition, String column);
+    ImplClass groupBy(boolean condition, String column);
 
-    default PostfixBuild groupBy(String... columns) {
+    default ImplClass groupBy(String... columns) {
         return groupBy(true, columns);
     }
 
     /**
      * 分组
      */
-    PostfixBuild groupBy(boolean condition, String... columns);
+    ImplClass groupBy(boolean condition, String... columns);
 
-    default PostfixBuild orderBy(boolean isAsc, String column) {
+    default ImplClass orderBy(boolean isAsc, String column) {
         return orderBy(true, isAsc, column);
     }
 
     /**
      * 排序
      */
-    PostfixBuild orderBy(boolean condition, boolean isAsc, String column);
+    ImplClass orderBy(boolean condition, boolean isAsc, String column);
 
-    default PostfixBuild orderBy(boolean isAsc, String... columns) {
+    default ImplClass orderBy(boolean isAsc, String... columns) {
         return orderBy(true, isAsc, columns);
     }
 
     /**
      * 排序
      */
-    PostfixBuild orderBy(boolean condition, boolean isAsc, String... columns);
+    ImplClass orderBy(boolean condition, boolean isAsc, String... columns);
 
-    default PostfixBuild having(String sqlHaving, Object... params) {
+    default ImplClass having(String sqlHaving, Object... params) {
         return having(true, sqlHaving, params);
     }
 
     /**
      * HAVING
      */
-    PostfixBuild having(boolean condition, String sqlHaving, Object... params);
+    ImplClass having(boolean condition, String sqlHaving, Object... params);
 }

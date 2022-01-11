@@ -1,5 +1,5 @@
 package com.yu.wrapper.core;
 
-public interface UpdateSqlBuild {
+public interface UpdateSqlBuild<ImplClass> {
     String getSqlUpdate();
 }

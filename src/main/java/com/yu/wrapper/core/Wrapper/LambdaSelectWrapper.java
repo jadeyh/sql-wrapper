@@ -1,14 +1,14 @@
 package com.yu.wrapper.core.Wrapper;
 
+import com.yu.wrapper.core.PostfixBuild;
 import com.yu.wrapper.core.WhereBuild;
-import com.yu.wrapper.core.lambda.LambdaPostfixBuild;
 import com.yu.wrapper.core.lambda.LambdaWhereBuild;
 import com.yu.wrapper.core.utils.sqlUtils.SqlSegments;
 
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public class LambdaSelectWrapper implements LambdaWhereBuild, LambdaPostfixBuild {
+public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper>, PostfixBuild<LambdaSelectWrapper> {
     protected SqlSegments sqlSegments = new SqlSegments();
 
     @Override
