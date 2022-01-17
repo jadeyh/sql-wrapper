@@ -23,4 +23,13 @@ public interface Constants {
      * sql封装类的参数map的key值前缀
      */
     String PARAM = "param";
+
+    /**
+     * sql封装类的参数map的key值前缀
+     */
+    String COMMA = ",";
+
+    String LEFT_BRACKET = "(";
+
+    String RIGHT_BRACKET = ")";
 }

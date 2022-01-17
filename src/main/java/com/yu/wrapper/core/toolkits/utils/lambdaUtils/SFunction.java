@@ -1,4 +1,4 @@
-package com.yu.wrapper.core.toolkits.lambdaUtils;
+package com.yu.wrapper.core.toolkits.utils.lambdaUtils;
 
 import java.io.Serializable;
 import java.util.function.Function;

@@ -1,7 +1,7 @@
 package com.yu.wrapper.core.lambda;
 
 import com.yu.wrapper.core.WhereBuild;
-import com.yu.wrapper.core.toolkits.lambdaUtils.SFunction;
+import com.yu.wrapper.core.toolkits.utils.lambdaUtils.SFunction;
 
 import java.util.Collection;
 
@@ -135,7 +135,7 @@ public interface LambdaWhereBuild<ImplClass> extends WhereBuild<ImplClass>, GetB
      * LIKE '值%'
      */
     default <T> ImplClass likeStringight(boolean condition, SFunction<T, ?> column, Object val) {
-        return likeStringight(condition, getColumnName(column), val);
+        return likeStringRight(condition, getColumnName(column), val);
     }
 
     default <T> ImplClass isNull(SFunction<T, ?> column) {

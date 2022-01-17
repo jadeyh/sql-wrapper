@@ -1,16 +1,22 @@
 package com.yu.wrapper.core.wrapper;
 
+import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.ArrayUtil;
 import com.yu.wrapper.core.PostfixBuild;
 import com.yu.wrapper.core.WhereBuild;
 import com.yu.wrapper.core.lambda.LambdaWhereBuild;
 import com.yu.wrapper.core.toolkits.Constants;
+import com.yu.wrapper.core.toolkits.mybatisToolkits.MybatisKeyword;
 import com.yu.wrapper.core.toolkits.sqlToolkits.ParamMap;
 import com.yu.wrapper.core.toolkits.sqlToolkits.SqlKeyword;
 import com.yu.wrapper.core.toolkits.sqlToolkits.SqlSegments;
 import com.yu.wrapper.core.toolkits.sqlToolkits.SqlString;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Consumer;
+
+import static java.util.stream.Collectors.joining;
 
 public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper>, PostfixBuild<LambdaSelectWrapper> {
     protected SqlSegments sqlSegments ;
@@ -35,62 +41,100 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
 
     @Override
     public LambdaSelectWrapper gt(boolean condition, String column, Object val) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.GT, toSqlString(paramMap.putAndGetKey(val)));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper ge(boolean condition, String column, Object val) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.GE, toSqlString(paramMap.putAndGetKey(val)));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper lt(boolean condition, String column, Object val) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.LT, toSqlString(paramMap.putAndGetKey(val)));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper le(boolean condition, String column, Object val) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.BETWEEN, toSqlString(paramMap.putAndGetKey(val)));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper between(boolean condition, String column, Object val1, Object val2) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.BETWEEN,
+                    toSqlString(paramMap.putAndGetKey(val1)), SqlKeyword.AND, toSqlString(paramMap.putAndGetKey(val2)));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper notBetween(boolean condition, String column, Object val1, Object val2) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.NOT_BETWEEN,
+                    toSqlString(paramMap.putAndGetKey(val1)), SqlKeyword.AND, toSqlString(paramMap.putAndGetKey(val2)));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper like(boolean condition, String column, Object val) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.LIKE, toSqlString(paramMap.putAndGetKey(MybatisKeyword.PERCENT + val + MybatisKeyword.PERCENT)));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper notLike(boolean condition, String column, Object val) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.NOT_LIKE, toSqlString(paramMap.putAndGetKey(MybatisKeyword.PERCENT + val + MybatisKeyword.PERCENT)));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper likeLeft(boolean condition, String column, Object val) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.LIKE, toSqlString(paramMap.putAndGetKey(MybatisKeyword.PERCENT + val)));
+        }
+        return this;
     }
 
     @Override
-    public LambdaSelectWrapper likeStringight(boolean condition, String column, Object val) {
-        return null;
+    public LambdaSelectWrapper likeStringRight(boolean condition, String column, Object val) {
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.LIKE, toSqlString(paramMap.putAndGetKey(val + MybatisKeyword.PERCENT)));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper isNull(boolean condition, String column) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.IS_NULL);
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper isNotNull(boolean condition, String column) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.IS_NOT_NULL);
+        }
+        return this;
     }
 
     @Override
@@ -170,5 +214,26 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
 
     protected SqlString toSqlString(String s) {
         return () -> s;
+    }
+
+    /**
+     * 集合获取in表达式 包含括号
+     */
+    protected SqlString inExpression(Collection<?> values) {
+        if (CollectionUtil.isEmpty(values)) {
+            return () -> "()";
+        }
+        return () -> values.stream().map(i -> paramMap.putAndGetKey(i))
+                .collect(joining(Constants.COMMA, Constants.LEFT_BRACKET, Constants.RIGHT_BRACKET));
+    }
+
+    /**
+     * 数组获取in表达式 包含括号
+     */
+    protected SqlString inExpression(Object[] values) {
+        if (ArrayUtil.isEmpty(values)) {
+            return () -> "()";
+        }
+        return inExpression(Arrays.asList(values));
     }
 }

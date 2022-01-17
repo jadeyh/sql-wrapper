@@ -1,7 +1,7 @@
 package com.yu.wrapper.core.lambda;
 
-import com.yu.wrapper.core.toolkits.lambdaUtils.BeanColumnFieldUtil;
-import com.yu.wrapper.core.toolkits.lambdaUtils.SFunction;
+import com.yu.wrapper.core.toolkits.utils.lambdaUtils.BeanColumnFieldUtil;
+import com.yu.wrapper.core.toolkits.utils.lambdaUtils.SFunction;
 
 import java.util.stream.Stream;
 

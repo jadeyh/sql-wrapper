@@ -16,7 +16,7 @@
 package com.yu.wrapper.core.toolkits.sqlToolkits;
 
 /**
- * SQL 保留关键字
+ * SQL关键字
  */
 public enum SqlKeyword implements SqlString {
     AND("AND"),

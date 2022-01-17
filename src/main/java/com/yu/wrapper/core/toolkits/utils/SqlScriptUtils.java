@@ -15,6 +15,10 @@
  */
 package com.yu.wrapper.core.toolkits.utils;
 
+import cn.hutool.core.util.StrUtil;
+import com.yu.wrapper.core.toolkits.Constants;
+import com.yu.wrapper.core.toolkits.mybatisToolkits.MybatisKeyword;
+
 /**
  * sql 脚本工具类
  */
@@ -30,24 +34,17 @@ public abstract class SqlScriptUtils {
      * 安全入参:  #{入参,mapping}
      */
     public static String safeParam(String param, String mapping) {
-        String target = "#{" + param;
-        if (StringUtils.isBlank(mapping)) {
-            return target + RIGHT_BRACE;
+        String target = MybatisKeyword.SAFE_PLACEHOLDER_LEFT + param;
+        if (StrUtil.isBlank(mapping)) {
+            return target + MybatisKeyword.PLACEHOLDER_RIGHT;
         }
-        return target + COMMA + mapping + RIGHT_BRACE;
+        return target + Constants.COMMA + mapping + MybatisKeyword.PLACEHOLDER_RIGHT;
     }
 
     /**
      * 非安全入参:  ${入参}
      */
     public static String unSafeParam(String param) {
-        return DOLLAR_LEFT_BRACE + param + RIGHT_BRACE;
-    }
-
-    public static String mappingTypeHandler(Class<? extends TypeHandler<?>> typeHandler) {
-        if (typeHandler != null) {
-            return "typeHandler=" + typeHandler.getName();
-        }
-        return null;
+        return MybatisKeyword.SAFE_PLACEHOLDER_LEFT + param + MybatisKeyword.PLACEHOLDER_RIGHT;
     }
 }

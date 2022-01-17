@@ -101,14 +101,14 @@ public interface WhereBuild<ImplClass> {
      */
     ImplClass likeLeft(boolean condition, String column, Object val);
 
-    default ImplClass likeStringight(String column, Object val) {
-        return likeStringight(true, column, val);
+    default ImplClass likeStringRight(String column, Object val) {
+        return likeStringRight(true, column, val);
     }
 
     /**
      * LIKE '值%'
      */
-    ImplClass likeStringight(boolean condition, String column, Object val);
+    ImplClass likeStringRight(boolean condition, String column, Object val);
 
     default ImplClass isNull(String column) {
         return isNull(true, column);
