@@ -3,6 +3,7 @@ package com.yu.wrapper.core.wrapper;
 import com.yu.wrapper.core.PostfixBuild;
 import com.yu.wrapper.core.WhereBuild;
 import com.yu.wrapper.core.lambda.LambdaWhereBuild;
+import com.yu.wrapper.core.toolkits.Constants;
 import com.yu.wrapper.core.toolkits.sqlToolkits.ParamMap;
 import com.yu.wrapper.core.toolkits.sqlToolkits.SqlKeyword;
 import com.yu.wrapper.core.toolkits.sqlToolkits.SqlSegments;
@@ -12,17 +13,9 @@ import java.util.Collection;
 import java.util.function.Consumer;
 
 public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper>, PostfixBuild<LambdaSelectWrapper> {
-    protected SqlSegments sqlSegments = new SqlSegments();
+    protected SqlSegments sqlSegments ;
 
-    protected ParamMap paramMap = new ParamMap();
-
-    /**
-     * 必要的初始化
-     */
-    protected void init() {
-        sqlSegments = new SqlSegments();
-
-    }
+    protected ParamMap paramMap = new ParamMap(Constants.WRAPPER + Constants.DOT + Constants.PARAM_MAP + Constants.DOT);
 
     @Override
     public LambdaSelectWrapper eq(boolean condition, String column, Object val) {

@@ -18,4 +18,9 @@ public interface Constants {
      * sql封装类的参数map的参数名
      */
     String PARAM_MAP = "paramMap";
+
+    /**
+     * sql封装类的参数map的key值前缀
+     */
+    String PARAM = "param";
 }
