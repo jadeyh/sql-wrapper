@@ -34,7 +34,10 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
 
     @Override
     public LambdaSelectWrapper ne(boolean condition, String column, Object val) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.NE, toSqlString(paramMap.putAndGetKey(val)));
+        }
+        return this;
     }
 
     @Override
