@@ -19,7 +19,7 @@ import java.util.function.Consumer;
 import static java.util.stream.Collectors.joining;
 
 public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper>, PostfixBuild<LambdaSelectWrapper> {
-    protected SqlSegments sqlSegments ;
+    protected SqlSegments sqlSegments = new SqlSegments();
 
     protected ParamMap paramMap = new ParamMap(Constants.WRAPPER + Constants.DOT + Constants.PARAM_MAP + Constants.DOT);
 
@@ -138,28 +138,42 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
     }
 
     @Override
-    public LambdaSelectWrapper in(boolean condition, String column, Collection<?> coll) {
-        return null;
+    public LambdaSelectWrapper in(boolean condition, String column, Collection<?> values) {
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.IN, toSqlString(values));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper in(boolean condition, String column, Object... values) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.IN, toSqlString(values));
+        }
+        return this;
     }
 
     @Override
-    public LambdaSelectWrapper notIn(boolean condition, String column, Collection<?> coll) {
-        return null;
+    public LambdaSelectWrapper notIn(boolean condition, String column, Collection<?> values) {
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.NOT_IN, toSqlString(values));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper notIn(boolean condition, String column, Object... values) {
-        return null;
+        if(condition) {
+            sqlSegments.add(toSqlString(column), SqlKeyword.NOT_IN, toSqlString(values));
+        }
+        return this;
     }
 
     @Override
     public LambdaSelectWrapper and(boolean condition, Consumer<WhereBuild> consumer) {
-        return null;
+        if(condition) {
+        }
+        return this;
     }
 
     @Override
@@ -219,7 +233,7 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
     /**
      * 集合获取in表达式 包含括号
      */
-    protected SqlString inExpression(Collection<?> values) {
+    protected SqlString toSqlString(Collection<?> values) {
         if (CollectionUtil.isEmpty(values)) {
             return () -> "()";
         }
@@ -230,10 +244,10 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
     /**
      * 数组获取in表达式 包含括号
      */
-    protected SqlString inExpression(Object[] values) {
+    protected SqlString toSqlString(Object[] values) {
         if (ArrayUtil.isEmpty(values)) {
             return () -> "()";
         }
-        return inExpression(Arrays.asList(values));
+        return toSqlString(Arrays.asList(values));
     }
 }

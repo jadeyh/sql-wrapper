@@ -128,8 +128,8 @@ public interface WhereBuild<ImplClass> {
      */
     ImplClass isNotNull(boolean condition, String column);
 
-    default ImplClass in(String column, Collection<?> coll) {
-        return in(true, column, coll);
+    default ImplClass in(String column, Collection<?> values) {
+        return in(true, column, values);
     }
 
     /**
@@ -140,7 +140,7 @@ public interface WhereBuild<ImplClass> {
      * 如果集合为 empty 则不会进行 sql 拼接
      *
      */
-    ImplClass in(boolean condition, String column, Collection<?> coll);
+    ImplClass in(boolean condition, String column, Collection<?> values);
 
     default ImplClass in(String column, Object... values) {
         return in(true, column, values);
@@ -155,15 +155,15 @@ public interface WhereBuild<ImplClass> {
      */
     ImplClass in(boolean condition, String column, Object... values);
 
-    default ImplClass notIn(String column, Collection<?> coll) {
-        return notIn(true, column, coll);
+    default ImplClass notIn(String column, Collection<?> values) {
+        return notIn(true, column, values);
     }
 
     /**
      * 字段 NOT IN (value.get(0), value.get(1), ...)
      * 例: notIn("id", Arrays.asList(1, 2, 3, 4, 5))
      */
-    ImplClass notIn(boolean condition, String column, Collection<?> coll);
+    ImplClass notIn(boolean condition, String column, Collection<?> values);
 
     default ImplClass notIn(String column, Object... value) {
         return notIn(true, column, value);
