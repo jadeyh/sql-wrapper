@@ -175,7 +175,7 @@ public interface WhereBuild<ImplClass> {
      */
     ImplClass notIn(boolean condition, String column, Object... values);
 
-    default ImplClass and(Consumer<WhereBuild> consumer) {
+    default ImplClass and(Consumer<ImplClass> consumer) {
         return and(true, consumer);
     }
 
@@ -183,9 +183,9 @@ public interface WhereBuild<ImplClass> {
      * AND 嵌套
      * 例: and(i -> i.eq("name", "李白").ne("status", "活着"))
      */
-    ImplClass and(boolean condition, Consumer<WhereBuild> consumer);
+    ImplClass and(boolean condition, Consumer<ImplClass> consumer);
 
-    default ImplClass or(Consumer<WhereBuild> consumer) {
+    default ImplClass or(Consumer<ImplClass> consumer) {
         return or(true, consumer);
     }
 
@@ -193,7 +193,7 @@ public interface WhereBuild<ImplClass> {
      * OR 嵌套
      * 例: or(i -> i.eq("name", "李白").ne("status", "活着"))
      */
-    ImplClass or(boolean condition, Consumer<WhereBuild> consumer);
+    ImplClass or(boolean condition, Consumer<ImplClass> consumer);
 
     default ImplClass or() {
         return or(true);
@@ -204,7 +204,7 @@ public interface WhereBuild<ImplClass> {
      */
     ImplClass or(boolean condition);
 
-    default ImplClass nested(Consumer<WhereBuild> consumer) {
+    default ImplClass nested(Consumer<ImplClass> consumer) {
         return nested(true, consumer);
     }
 
@@ -212,9 +212,9 @@ public interface WhereBuild<ImplClass> {
      * 正常嵌套 不带 AND 或者 OR
      * 例: nested(i -> i.eq("name", "李白").ne("status", "活着"))
      */
-    ImplClass nested(boolean condition, Consumer<WhereBuild> consumer);
+    ImplClass nested(boolean condition, Consumer<ImplClass> consumer);
 
-    default ImplClass not(Consumer<WhereBuild> consumer) {
+    default ImplClass not(Consumer<ImplClass> consumer) {
         return not(true, consumer);
     }
 
@@ -222,7 +222,7 @@ public interface WhereBuild<ImplClass> {
      * not嵌套
      * 例: not(i -> i.eq("name", "李白").ne("status", "活着"))
      */
-    ImplClass not(boolean condition, Consumer<WhereBuild> consumer);
+    ImplClass not(boolean condition, Consumer<ImplClass> consumer);
 
     default ImplClass applySql(String applySql, Object... values) {
         return applySql(true, applySql, values);
