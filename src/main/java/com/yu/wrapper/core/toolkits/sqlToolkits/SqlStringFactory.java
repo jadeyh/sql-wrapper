@@ -10,14 +10,14 @@ import java.util.Collection;
 import static java.util.stream.Collectors.joining;
 
 public class SqlStringFactory {
-    protected SqlString toSqlString(String s) {
+    public static SqlString toSqlString(String s) {
         return () -> s;
     }
 
     /**
      * 集合获取in表达式 包含括号
      */
-    protected SqlString toSqlString(Collection<?> values) {
+    public static SqlString toSqlString(Collection<?> values, ParamMap paramMap) {
         if (CollectionUtil.isEmpty(values)) {
             return () -> "()";
         }
@@ -28,10 +28,10 @@ public class SqlStringFactory {
     /**
      * 数组获取in表达式 包含括号
      */
-    protected SqlString toSqlString(Object[] values) {
+    public static SqlString toSqlString(Object[] values, ParamMap paramMap) {
         if (ArrayUtil.isEmpty(values)) {
             return () -> "()";
         }
-        return toSqlString(Arrays.asList(values));
+        return toSqlString(Arrays.asList(values), paramMap);
     }
 }

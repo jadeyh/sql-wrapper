@@ -185,6 +185,15 @@ public interface WhereBuild<ImplClass> {
      */
     ImplClass and(boolean condition, Consumer<ImplClass> consumer);
 
+    default ImplClass and() {
+        return and(true);
+    };
+
+    /**
+     * 拼接 AND
+     */
+    ImplClass and(boolean condition);
+
     default ImplClass or(Consumer<ImplClass> consumer) {
         return or(true, consumer);
     }
@@ -223,6 +232,15 @@ public interface WhereBuild<ImplClass> {
      * 例: not(i -> i.eq("name", "李白").ne("status", "活着"))
      */
     ImplClass not(boolean condition, Consumer<ImplClass> consumer);
+
+    default ImplClass not() {
+        return not(true);
+    };
+
+    /**
+     * 拼接 NOT
+     */
+    ImplClass not(boolean condition);
 
     default ImplClass applySql(String applySql, Object... values) {
         return applySql(true, applySql, values);

@@ -131,7 +131,7 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
     @Override
     public LambdaSelectWrapper in(boolean condition, String column, Collection<?> values) {
         if(condition) {
-            sqlSegments.add(SqlStringFactory.toSqlString(column), SqlKeyword.IN, SqlStringFactory.toSqlString(values));
+            sqlSegments.add(SqlStringFactory.toSqlString(column), SqlKeyword.IN, SqlStringFactory.toSqlString(values, paramMap));
         }
         return this;
     }
@@ -139,7 +139,7 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
     @Override
     public LambdaSelectWrapper in(boolean condition, String column, Object... values) {
         if(condition) {
-            sqlSegments.add(SqlStringFactory.toSqlString(column), SqlKeyword.IN, SqlStringFactory.toSqlString(values));
+            sqlSegments.add(SqlStringFactory.toSqlString(column), SqlKeyword.IN, SqlStringFactory.toSqlString(values, paramMap));
         }
         return this;
     }
@@ -147,7 +147,7 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
     @Override
     public LambdaSelectWrapper notIn(boolean condition, String column, Collection<?> values) {
         if(condition) {
-            sqlSegments.add(SqlStringFactory.toSqlString(column), SqlKeyword.NOT_IN, SqlStringFactory.toSqlString(values));
+            sqlSegments.add(SqlStringFactory.toSqlString(column), SqlKeyword.NOT_IN, SqlStringFactory.toSqlString(values, paramMap));
         }
         return this;
     }
@@ -155,14 +155,40 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
     @Override
     public LambdaSelectWrapper notIn(boolean condition, String column, Object... values) {
         if(condition) {
-            sqlSegments.add(SqlStringFactory.toSqlString(column), SqlKeyword.NOT_IN, SqlStringFactory.toSqlString(values));
+            sqlSegments.add(SqlStringFactory.toSqlString(column), SqlKeyword.NOT_IN, SqlStringFactory.toSqlString(values, paramMap));
         }
         return this;
     }
 
     @Override
     public LambdaSelectWrapper and(boolean condition, Consumer<LambdaSelectWrapper> consumer) {
-        if(condition) {
+        return and(condition).nested(condition, consumer);
+    }
+
+    @Override
+    public LambdaSelectWrapper and(boolean condition) {
+        if (condition) {
+            sqlSegments.add(SqlKeyword.AND);
+        }
+        return this;
+    }
+
+    @Override
+    public LambdaSelectWrapper or(boolean condition, Consumer<LambdaSelectWrapper> consumer) {
+        return or(condition).nested(condition, consumer);
+    }
+
+    @Override
+    public LambdaSelectWrapper or(boolean condition) {
+        if (condition) {
+            sqlSegments.add(SqlKeyword.OR);
+        }
+        return this;
+    }
+
+    @Override
+    public LambdaSelectWrapper nested(boolean condition, Consumer<LambdaSelectWrapper> consumer) {
+        if (condition) {
             LambdaSelectWrapper lambdaSelectWrapper = new LambdaSelectWrapper();
             consumer.accept(lambdaSelectWrapper);
             sqlSegments.add(lambdaSelectWrapper);
@@ -171,23 +197,16 @@ public class LambdaSelectWrapper implements LambdaWhereBuild<LambdaSelectWrapper
     }
 
     @Override
-    public LambdaSelectWrapper or(boolean condition, Consumer<LambdaSelectWrapper> consumer) {
-        return null;
-    }
-
-    @Override
-    public LambdaSelectWrapper or(boolean condition) {
-        return null;
-    }
-
-    @Override
-    public LambdaSelectWrapper nested(boolean condition, Consumer<LambdaSelectWrapper> consumer) {
-        return null;
-    }
-
-    @Override
     public LambdaSelectWrapper not(boolean condition, Consumer<LambdaSelectWrapper> consumer) {
-        return null;
+        return not(condition).nested(condition, consumer);
+    }
+
+    @Override
+    public LambdaSelectWrapper not(boolean condition) {
+        if (condition) {
+            sqlSegments.add(SqlKeyword.NOT);
+        }
+        return this;
     }
 
     @Override
