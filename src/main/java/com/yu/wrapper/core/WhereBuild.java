@@ -242,8 +242,8 @@ public interface WhereBuild<ImplClass> {
      */
     ImplClass not(boolean condition);
 
-    default ImplClass applySql(String applySql, Object... values) {
-        return applySql(true, applySql, values);
+    default ImplClass apply(String applySql, Object... values) {
+        return apply(true, applySql, values);
     }
 
     /**
@@ -253,5 +253,5 @@ public interface WhereBuild<ImplClass> {
      * 例2: apply("date_format(dateColumn,'%Y-%m-%d') = '2008-08-08'")
      * 例3: apply("date_format(dateColumn,'%Y-%m-%d') = {0}", LocalDate.now())
      */
-    ImplClass applySql(boolean condition, String applySql, Object... values);
+    ImplClass apply(boolean condition, String applySql, Object... values);
 }

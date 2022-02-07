@@ -15,6 +15,8 @@
  */
 package com.yu.wrapper.core.toolkits.sqlToolkits;
 
+import java.util.Objects;
+
 /**
  * SQL关键字
  */
@@ -42,9 +44,10 @@ public enum SqlKeyword implements SqlString {
     BETWEEN("BETWEEN"),
     NOT_BETWEEN("NOT BETWEEN"),
     ASC("ASC"),
-    DESC("DESC");
+    DESC("DESC"),
+    APPLY("APPLY");
 
-    private final String keyword;
+    private String keyword;
 
     SqlKeyword(String keyword) {
         this.keyword = keyword;
@@ -54,8 +57,12 @@ public enum SqlKeyword implements SqlString {
         return keyword;
     }
 
+    public boolean match(SqlString sqlString) {
+        return Objects.equals(this.getSqlString(), sqlString.getSqlString());
+    }
+
     @Override
     public String getSqlString() {
-        return null;
+        return keyword;
     }
 }
