@@ -61,7 +61,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * BETWEEN 值1 AND 值2
+     * BETWEEN value1 AND value2
      */
     ImplClass between(boolean condition, String column, Object val1, Object val2);
 
@@ -70,7 +70,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * NOT BETWEEN 值1 AND 值2
+     * NOT BETWEEN value1 AND value2
      */
     ImplClass notBetween(boolean condition, String column, Object val1, Object val2);
 
@@ -79,7 +79,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * LIKE '%值%'
+     * LIKE '%value%'
      */
     ImplClass like(boolean condition, String column, Object val);
 
@@ -88,7 +88,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * NOT LIKE '%值%'
+     * NOT LIKE '%value%'
      */
     ImplClass notLike(boolean condition, String column, Object val);
 
@@ -97,25 +97,25 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * LIKE '%值'
+     * LIKE '%value'
      */
     ImplClass likeLeft(boolean condition, String column, Object val);
 
-    default ImplClass likeStringRight(String column, Object val) {
-        return likeStringRight(true, column, val);
+    default ImplClass likeRight(String column, Object val) {
+        return likeRight(true, column, val);
     }
 
     /**
-     * LIKE '值%'
+     * LIKE 'value%'
      */
-    ImplClass likeStringRight(boolean condition, String column, Object val);
+    ImplClass likeRight(boolean condition, String column, Object val);
 
     default ImplClass isNull(String column) {
         return isNull(true, column);
     }
 
     /**
-     * 字段 IS NULL
+     * IS NULL
      */
     ImplClass isNull(boolean condition, String column);
 
@@ -124,7 +124,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * 字段 IS NOT NULL
+     * IS NOT NULL
      */
     ImplClass isNotNull(boolean condition, String column);
 
@@ -133,12 +133,8 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * 字段 IN (value.get(0), value.get(1), ...)
-     * 例: in("id", Arrays.asList(1, 2, 3, 4, 5))
-     *
-     * 注意！集合为空若存在逻辑错误，请在 condition 条件中判断
-     * 如果集合为 empty 则不会进行 sql 拼接
-     *
+     * IN (values)
+     * 集合为空是逻辑错误的，如果动态数组为empty则不会进行sql拼接
      */
     ImplClass in(boolean condition, String column, Collection<?> values);
 
@@ -147,11 +143,8 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * 字段 IN (v0, v1, ...)
-     * 例: in("id", 1, 2, 3, 4, 5)
-     *
-     * 注意！数组为空若存在逻辑错误，请在 condition 条件中判断
-     * 如果动态数组为 empty 则不会进行 sql 拼接
+     * IN (value1, value2, ...)
+     * 数组为空是逻辑错误的，如果动态数组为empty则不会进行sql拼接
      */
     ImplClass in(boolean condition, String column, Object... values);
 
@@ -160,8 +153,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * 字段 NOT IN (value.get(0), value.get(1), ...)
-     * 例: notIn("id", Arrays.asList(1, 2, 3, 4, 5))
+     * 字段 NOT IN (values)
      */
     ImplClass notIn(boolean condition, String column, Collection<?> values);
 
@@ -170,8 +162,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * 字段 NOT IN (v0, v1, ...)
-     * 例: notIn("id", 1, 2, 3, 4, 5)
+     * NOT IN (value1, value2, ...)
      */
     ImplClass notIn(boolean condition, String column, Object... values);
 
@@ -180,8 +171,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * AND 嵌套
-     * 例: and(i -> i.eq("name", "李白").ne("status", "活着"))
+     * AND嵌套
      */
     ImplClass and(boolean condition, Consumer<ImplClass> consumer);
 
@@ -190,7 +180,7 @@ public interface WhereBuild<ImplClass> {
     };
 
     /**
-     * 拼接 AND
+     * 拼接AND
      */
     ImplClass and(boolean condition);
 
@@ -199,8 +189,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * OR 嵌套
-     * 例: or(i -> i.eq("name", "李白").ne("status", "活着"))
+     * OR嵌套
      */
     ImplClass or(boolean condition, Consumer<ImplClass> consumer);
 
@@ -209,7 +198,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * 拼接 OR
+     * 拼接OR
      */
     ImplClass or(boolean condition);
 
@@ -218,8 +207,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * 正常嵌套 不带 AND 或者 OR
-     * 例: nested(i -> i.eq("name", "李白").ne("status", "活着"))
+     * 嵌套（其实就是括号）
      */
     ImplClass nested(boolean condition, Consumer<ImplClass> consumer);
 
@@ -228,8 +216,7 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * not嵌套
-     * 例: not(i -> i.eq("name", "李白").ne("status", "活着"))
+     * NOT嵌套，其实就是not括号
      */
     ImplClass not(boolean condition, Consumer<ImplClass> consumer);
 
@@ -238,7 +225,7 @@ public interface WhereBuild<ImplClass> {
     };
 
     /**
-     * 拼接 NOT
+     * 拼接NOT
      */
     ImplClass not(boolean condition);
 
@@ -247,11 +234,28 @@ public interface WhereBuild<ImplClass> {
     }
 
     /**
-     * 拼接 sql
-     * 会有 sql 注入风险
-     * 例1: apply("id = 1")
-     * 例2: apply("date_format(dateColumn,'%Y-%m-%d') = '2008-08-08'")
-     * 例3: apply("date_format(dateColumn,'%Y-%m-%d') = {0}", LocalDate.now())
+     * 拼接sql，有sql注入风险
      */
     ImplClass apply(boolean condition, String applySql, Object... values);
+
+    default ImplClass exists(String existsSql, Object... values) {
+        return exists(true, existsSql, values);
+    }
+
+    /**
+     * NOT EXISTS (sql)
+     */
+    ImplClass exists(boolean condition, String existsSql, Object... values);
+
+    /**
+     * ignore
+     */
+    default ImplClass notExists(String existsSql, Object... values) {
+        return notExists(true, existsSql, values);
+    }
+
+    /**
+     * NOT EXISTS (sql)
+     */
+    ImplClass notExists(boolean condition, String existsSql, Object... values);
 }

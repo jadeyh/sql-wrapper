@@ -118,7 +118,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper likeStringRight(boolean condition, String column, Object val) {
+    public SelectWrapper likeRight(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.LIKE, SqlStringFactory.toSqlString(putParamMapAndGetKey(val + MybatisKeyword.PERCENT)));
         }
@@ -222,6 +222,19 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
             addSqlSegments(SqlKeyword.APPLY, SqlStringFactory.toSqlString(formatSqlParam(applySql, null, values)));
         }
         return this;
+    }
+
+    @Override
+    public SelectWrapper exists(boolean condition, String existsSql, Object... values) {
+        if(condition) {
+            addSqlSegments(SqlKeyword.EXISTS, SqlStringFactory.toSqlString(Constants.LEFT_BRACKET + formatSqlParam(existsSql, null, values) + Constants.RIGHT_BRACKET));
+        }
+        return this;
+    }
+
+    @Override
+    public SelectWrapper notExists(boolean condition, String existsSql, Object... values) {
+        return not(condition).exists(condition, existsSql, values);
     }
 
     @Override

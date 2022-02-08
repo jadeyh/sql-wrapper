@@ -135,7 +135,7 @@ public interface LambdaWhereBuild<ImplClass> extends WhereBuild<ImplClass>, GetB
      * LIKE '值%'
      */
     default <T> ImplClass likeStringight(boolean condition, SFunction<T, ?> column, Object val) {
-        return likeStringRight(condition, getColumnName(column), val);
+        return likeRight(condition, getColumnName(column), val);
     }
 
     default <T> ImplClass isNull(SFunction<T, ?> column) {
