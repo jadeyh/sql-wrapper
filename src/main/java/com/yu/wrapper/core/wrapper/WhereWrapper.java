@@ -8,27 +8,28 @@ import com.yu.wrapper.core.lambda.LambdaWhereBuild;
 import com.yu.wrapper.core.toolkits.Constants;
 import com.yu.wrapper.core.toolkits.mybatisToolkits.MybatisKeyword;
 import com.yu.wrapper.core.toolkits.sqlToolkits.*;
+import com.yu.wrapper.core.toolkits.utils.lambdaUtils.BeanColumnFieldUtil;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPostfixBuild<SelectWrapper>, SqlString {
+public class WhereWrapper implements LambdaWhereBuild<WhereWrapper>, LambdaPostfixBuild<WhereWrapper>, SqlString {
     protected SqlSegments sqlSegments = new SqlSegments();
 
     protected ParamMap paramMap;
 
-    public SelectWrapper() {
+    public WhereWrapper() {
         this.paramMap = new ParamMap(Constants.WRAPPER + Constants.DOT + Constants.PARAM_MAP + Constants.DOT);
     }
 
-    public SelectWrapper(ParamMap paramMap) {
+    public WhereWrapper(ParamMap paramMap) {
         this.paramMap = paramMap;
     }
 
     @Override
-    public SelectWrapper eq(boolean condition, String column, Object val) {
+    public WhereWrapper eq(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.EQ, SqlStringFactory.toSqlString(putParamMapAndGetKey(val)));
         }
@@ -36,7 +37,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper ne(boolean condition, String column, Object val) {
+    public WhereWrapper ne(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.NE, SqlStringFactory.toSqlString(putParamMapAndGetKey(val)));
         }
@@ -44,7 +45,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper gt(boolean condition, String column, Object val) {
+    public WhereWrapper gt(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.GT, SqlStringFactory.toSqlString(putParamMapAndGetKey(val)));
         }
@@ -52,7 +53,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper ge(boolean condition, String column, Object val) {
+    public WhereWrapper ge(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.GE, SqlStringFactory.toSqlString(putParamMapAndGetKey(val)));
         }
@@ -60,7 +61,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper lt(boolean condition, String column, Object val) {
+    public WhereWrapper lt(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.LT, SqlStringFactory.toSqlString(putParamMapAndGetKey(val)));
         }
@@ -68,7 +69,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper le(boolean condition, String column, Object val) {
+    public WhereWrapper le(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.BETWEEN, SqlStringFactory.toSqlString(putParamMapAndGetKey(val)));
         }
@@ -76,7 +77,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper between(boolean condition, String column, Object val1, Object val2) {
+    public WhereWrapper between(boolean condition, String column, Object val1, Object val2) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.BETWEEN,
                     SqlStringFactory.toSqlString(putParamMapAndGetKey(val1)), SqlKeyword.AND, SqlStringFactory.toSqlString(putParamMapAndGetKey(val2)));
@@ -85,7 +86,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper notBetween(boolean condition, String column, Object val1, Object val2) {
+    public WhereWrapper notBetween(boolean condition, String column, Object val1, Object val2) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.NOT_BETWEEN,
                     SqlStringFactory.toSqlString(putParamMapAndGetKey(val1)), SqlKeyword.AND, SqlStringFactory.toSqlString(putParamMapAndGetKey(val2)));
@@ -94,7 +95,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper like(boolean condition, String column, Object val) {
+    public WhereWrapper like(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.LIKE, SqlStringFactory.toSqlString(putParamMapAndGetKey(MybatisKeyword.PERCENT + val + MybatisKeyword.PERCENT)));
         }
@@ -102,7 +103,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper notLike(boolean condition, String column, Object val) {
+    public WhereWrapper notLike(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.NOT_LIKE, SqlStringFactory.toSqlString(putParamMapAndGetKey(MybatisKeyword.PERCENT + val + MybatisKeyword.PERCENT)));
         }
@@ -110,7 +111,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper likeLeft(boolean condition, String column, Object val) {
+    public WhereWrapper likeLeft(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.LIKE, SqlStringFactory.toSqlString(putParamMapAndGetKey(MybatisKeyword.PERCENT + val)));
         }
@@ -118,7 +119,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper likeRight(boolean condition, String column, Object val) {
+    public WhereWrapper likeRight(boolean condition, String column, Object val) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.LIKE, SqlStringFactory.toSqlString(putParamMapAndGetKey(val + MybatisKeyword.PERCENT)));
         }
@@ -126,7 +127,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper isNull(boolean condition, String column) {
+    public WhereWrapper isNull(boolean condition, String column) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.IS_NULL);
         }
@@ -134,7 +135,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper isNotNull(boolean condition, String column) {
+    public WhereWrapper isNotNull(boolean condition, String column) {
         if(condition) {
             addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.IS_NOT_NULL);
         }
@@ -142,38 +143,38 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper in(boolean condition, String column, Collection<?> values) {
+    public WhereWrapper in(boolean condition, String column, Collection<?> values) {
         if(condition) {
-            addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.IN, SqlStringFactory.toSqlString(values, i -> putParamMapAndGetKey(i)));
+            addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.IN, SqlStringFactory.toSqlString(values, this::putParamMapAndGetKey));
         }
         return this;
     }
 
     @Override
-    public SelectWrapper in(boolean condition, String column, Object... values) {
+    public WhereWrapper in(boolean condition, String column, Object... values) {
         return in(condition, column, Arrays.asList(values));
     }
 
     @Override
-    public SelectWrapper notIn(boolean condition, String column, Collection<?> values) {
+    public WhereWrapper notIn(boolean condition, String column, Collection<?> values) {
         if(condition) {
-            addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.NOT_IN, SqlStringFactory.toSqlString(values, i -> putParamMapAndGetKey(i)));
+            addSqlSegments(SqlStringFactory.toSqlString(column), SqlKeyword.NOT_IN, SqlStringFactory.toSqlString(values, this::putParamMapAndGetKey));
         }
         return this;
     }
 
     @Override
-    public SelectWrapper notIn(boolean condition, String column, Object... values) {
+    public WhereWrapper notIn(boolean condition, String column, Object... values) {
         return notIn(condition, column, Arrays.asList(values));
     }
 
     @Override
-    public SelectWrapper and(boolean condition, Consumer<SelectWrapper> consumer) {
+    public WhereWrapper and(boolean condition, Consumer<WhereWrapper> consumer) {
         return and(condition).nested(condition, consumer);
     }
 
     @Override
-    public SelectWrapper and(boolean condition) {
+    public WhereWrapper and(boolean condition) {
         if (condition) {
             addSqlSegments(SqlKeyword.AND);
         }
@@ -181,12 +182,12 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper or(boolean condition, Consumer<SelectWrapper> consumer) {
+    public WhereWrapper or(boolean condition, Consumer<WhereWrapper> consumer) {
         return or(condition).nested(condition, consumer);
     }
 
     @Override
-    public SelectWrapper or(boolean condition) {
+    public WhereWrapper or(boolean condition) {
         if (condition) {
             addSqlSegments(SqlKeyword.OR);
         }
@@ -194,22 +195,22 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper nested(boolean condition, Consumer<SelectWrapper> consumer) {
+    public WhereWrapper nested(boolean condition, Consumer<WhereWrapper> consumer) {
         if (condition) {
-            SelectWrapper selectWrapper = new SelectWrapper(paramMap);
-            consumer.accept(selectWrapper);
-            addSqlSegments(SqlKeyword.APPLY, selectWrapper);
+            WhereWrapper whereWrapper = new WhereWrapper(paramMap);
+            consumer.accept(whereWrapper);
+            addSqlSegments(SqlKeyword.APPLY, whereWrapper);
         }
         return this;
     }
 
     @Override
-    public SelectWrapper not(boolean condition, Consumer<SelectWrapper> consumer) {
+    public WhereWrapper not(boolean condition, Consumer<WhereWrapper> consumer) {
         return not(condition).nested(condition, consumer);
     }
 
     @Override
-    public SelectWrapper not(boolean condition) {
+    public WhereWrapper not(boolean condition) {
         if (condition) {
             addSqlSegments(SqlKeyword.NOT);
         }
@@ -217,7 +218,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper apply(boolean condition, String applySql, Object... values) {
+    public WhereWrapper apply(boolean condition, String applySql, Object... values) {
         if(condition) {
             addSqlSegments(SqlKeyword.APPLY, SqlStringFactory.toSqlString(formatSqlParam(applySql, null, values)));
         }
@@ -225,7 +226,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper exists(boolean condition, String existsSql, Object... values) {
+    public WhereWrapper exists(boolean condition, String existsSql, Object... values) {
         if(condition) {
             addSqlSegments(SqlKeyword.EXISTS, SqlStringFactory.toSqlString(Constants.LEFT_BRACKET + formatSqlParam(existsSql, null, values) + Constants.RIGHT_BRACKET));
         }
@@ -233,12 +234,12 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper notExists(boolean condition, String existsSql, Object... values) {
+    public WhereWrapper notExists(boolean condition, String existsSql, Object... values) {
         return not(condition).exists(condition, existsSql, values);
     }
 
     @Override
-    public SelectWrapper groupBy(boolean condition, List<String> columns) {
+    public WhereWrapper groupBy(boolean condition, List<String> columns) {
         if(condition) {
             addSqlSegments(SqlKeyword.GROUP_BY, SqlStringFactory.toSqlString(columns));
         }
@@ -246,7 +247,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper orderBy(boolean condition, boolean isAsc, List<String> columns) {
+    public WhereWrapper orderBy(boolean condition, boolean isAsc, List<String> columns) {
         if(condition) {
             addSqlSegments(SqlKeyword.ORDER_BY, SqlStringFactory.toSqlString(columns));
         }
@@ -254,7 +255,7 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     @Override
-    public SelectWrapper having(boolean condition, String havingSql, Object... params) {
+    public WhereWrapper having(boolean condition, String havingSql, Object... params) {
         if(condition) {
             addSqlSegments(SqlKeyword.HAVING, SqlStringFactory.toSqlString(formatSqlParam(havingSql, null, params)));
         }
@@ -312,12 +313,12 @@ public class SelectWrapper implements LambdaWhereBuild<SelectWrapper>, LambdaPos
     }
 
     public static void main(String[] args) {
-        SelectWrapper selectWrapper = new SelectWrapper();
-        selectWrapper.eq(Form::getId, "a").in(Form::getName, "b", "c")
+        WhereWrapper whereWrapper = new WhereWrapper();
+        whereWrapper.eq(Form::getId, "a").in(Form::getName, "b", "c")
 //                .nested(sw -> sw.eq(Form::getId, "1"))
                 .groupBy(Form::getCode).groupBy(Form::getName);
-        selectWrapper.orderBy(true, Form::getCode, Form::getId);
-        selectWrapper.not(i -> i.or().eq("d", "e"));
-        System.out.println(selectWrapper.getSqlString());
+        whereWrapper.orderBy(true, BeanColumnFieldUtil.getColumnNamesByLambdas(Form::getCode, Form::getId));
+        whereWrapper.not(i -> i.or().eq("d", "e"));
+        System.out.println(whereWrapper.getSqlString());
     }
 }

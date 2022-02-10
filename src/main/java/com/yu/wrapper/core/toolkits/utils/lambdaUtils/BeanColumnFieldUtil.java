@@ -6,6 +6,7 @@ import com.yu.wrapper.annotation.TableColumn;
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.stream.Stream;
 
 public class BeanColumnFieldUtil {
     /**
@@ -54,6 +55,17 @@ public class BeanColumnFieldUtil {
      */
     public static <T> String getColumnNameByLambda(SFunction<T, ?> func) {
         return getColumnName(getFieldByLambda(func));
+    }
+
+    /**
+     * 根据get/set方法的vararg形式获取列名
+     */
+    @SafeVarargs
+    public static <T> String[] getColumnNamesByLambdas(SFunction<T, ?>... funcs) {
+        if (funcs == null || funcs.length == 0) {
+            return null;
+        }
+        return Stream.of(funcs).map(func -> getColumnNameByLambda(func)).toArray(String[]::new);
     }
 
     /**
