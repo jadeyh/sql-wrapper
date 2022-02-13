@@ -1,11 +1,13 @@
 package com.yu.wrapper.core.toolkits.utils.lambdaUtils;
 
+import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.StrUtil;
 import com.yu.wrapper.annotation.TableColumn;
 
 import java.lang.invoke.SerializedLambda;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class BeanColumnFieldUtil {
@@ -66,6 +68,16 @@ public class BeanColumnFieldUtil {
             return null;
         }
         return Stream.of(funcs).map(func -> getColumnNameByLambda(func)).toArray(String[]::new);
+    }
+
+    /**
+     * 根据get/set方法List形式获取列名数组
+     */
+    public static <T> String[] getColumnNamesByLambdas(List<SFunction<T, ?>> funcs) {
+        if (ArrayUtil.isEmpty(funcs)) {
+            return null;
+        }
+        return funcs.stream().map(func -> getColumnNameByLambda(func)).toArray(String[]::new);
     }
 
     /**
