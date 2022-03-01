@@ -3,7 +3,7 @@ package com.yu.wrapper.core;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-public interface WhereBuild<ImplClass> {
+public interface WhereBuild<ImplClass extends WhereBuild<ImplClass>> {
 
     default ImplClass eq(String column, Object val) {
         return eq(true, column, val);

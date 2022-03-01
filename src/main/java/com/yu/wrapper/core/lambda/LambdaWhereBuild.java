@@ -6,7 +6,7 @@ import com.yu.wrapper.core.toolkits.utils.lambdaUtils.SFunction;
 
 import java.util.Collection;
 
-public interface LambdaWhereBuild<ImplClass> extends WhereBuild<ImplClass> {
+public interface LambdaWhereBuild<ImplClass extends LambdaWhereBuild<ImplClass>> extends WhereBuild<ImplClass> {
     default <T> ImplClass eq(SFunction<T, ?> column, Object val) {
         return eq(true, column, val);
     }

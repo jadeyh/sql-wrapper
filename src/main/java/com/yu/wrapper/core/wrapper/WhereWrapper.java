@@ -13,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 
-public abstract class WhereWrapper<ImplClass extends SqlString> implements LambdaWhereBuild<ImplClass>, LambdaPostfixBuild<ImplClass>, SqlString {
+public abstract class WhereWrapper<ImplClass extends WhereWrapper<ImplClass>> implements LambdaWhereBuild<ImplClass>, LambdaPostfixBuild<ImplClass>, SqlString {
     protected SqlSegments sqlSegments = new SqlSegments();
 
     protected ParamMap paramMap;
@@ -24,9 +24,9 @@ public abstract class WhereWrapper<ImplClass extends SqlString> implements Lambd
     protected final ImplClass typedThis = (ImplClass) this;
 
     /**
-     * 返回一个自己的新对象
+     * 返回一个用于嵌套的子对象
      */
-    protected abstract ImplClass instance();
+    protected abstract ImplClass children();
 
     public WhereWrapper() {
         this.paramMap = new ParamMap(Constants.WRAPPER + Constants.DOT + Constants.PARAM_MAP + Constants.DOT);
@@ -205,7 +205,7 @@ public abstract class WhereWrapper<ImplClass extends SqlString> implements Lambd
     @Override
     public ImplClass nested(boolean condition, Consumer<ImplClass> consumer) {
         if (condition) {
-            ImplClass implClass = instance();
+            ImplClass implClass = children();
             consumer.accept(implClass);
             addSqlSegments(SqlKeyword.APPLY, implClass);
         }
