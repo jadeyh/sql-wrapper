@@ -1,11 +1,11 @@
 package com.yu.wrapper.core.wrapper;
 
 import cn.hutool.core.util.ArrayUtil;
-import com.yu.wrapper.core.SelectBuild;
+import com.yu.wrapper.core.lambda.LambdaSelectBuild;
 import com.yu.wrapper.core.toolkits.Constants;
 import com.yu.wrapper.core.toolkits.sqlToolkits.ParamMap;
 
-public class SelectWrapper extends WhereWrapper<SelectWrapper> implements SelectBuild<SelectWrapper> {
+public class SelectWrapper extends WhereWrapper<SelectWrapper> implements LambdaSelectBuild<SelectWrapper> {
     private String sqlSelect;
 
     public SelectWrapper() {
