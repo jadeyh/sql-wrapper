@@ -24,9 +24,8 @@ public interface Constants {
      */
     String PARAM = "param";
 
-    /**
-     * sql封装类的参数map的key值前缀
-     */
+    String DEFAULT_PLACEHOLDER_PREFIX = WRAPPER + DOT + PARAM_MAP + DOT;
+
     String COMMA = ",";
 
     String LEFT_BRACKET = "(";

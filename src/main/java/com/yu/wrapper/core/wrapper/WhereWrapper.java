@@ -29,7 +29,7 @@ public abstract class WhereWrapper<ImplClass extends WhereWrapper<ImplClass>> im
     protected abstract ImplClass children();
 
     public WhereWrapper() {
-        this.paramMap = new ParamMap(Constants.WRAPPER + Constants.DOT + Constants.PARAM_MAP + Constants.DOT);
+        this.paramMap = new ParamMap(Constants.DEFAULT_PLACEHOLDER_PREFIX);
     }
 
     public WhereWrapper(ParamMap paramMap) {
