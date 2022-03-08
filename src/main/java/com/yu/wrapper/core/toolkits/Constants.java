@@ -39,4 +39,6 @@ public interface Constants {
     String SPACE = " ";
 
     String EMPTY = "";
+
+    String WHERE = "WHERE";
 }
