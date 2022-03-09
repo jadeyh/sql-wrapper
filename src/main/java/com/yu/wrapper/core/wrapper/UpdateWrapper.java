@@ -26,7 +26,7 @@ public class UpdateWrapper extends WhereWrapper<UpdateWrapper> implements Lambda
     @Override
     public UpdateWrapper update(boolean condition, String column, Object val, String mapping) {
         if(condition) {
-            sqlUpdate.add(column + Constants.SPACE + SqlKeyword.EQ  + Constants.SPACE + putParamMapAndGetKey(val, mapping));
+            sqlUpdate.add(column + Constants.SPACE + SqlKeyword.EQ.getSqlString()  + Constants.SPACE + putParamMapAndGetKey(val, mapping));
         }
         return typedThis;
     }
