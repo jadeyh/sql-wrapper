@@ -270,7 +270,6 @@ public abstract class WhereWrapper<ImplClass extends WhereWrapper<ImplClass>> im
         return null;
     }
 
-
     @Override
     public String getSqlString() {
         return sqlSegments.getSqlString();
@@ -318,5 +317,17 @@ public abstract class WhereWrapper<ImplClass extends WhereWrapper<ImplClass>> im
             }
         }
         return sqlStr;
+    }
+
+    /**
+     * 获取构建出来的sql片段
+     */
+    public String getSqlSegment() {
+        String sqlString = sqlSegments.getSqlString();
+        if (StrUtil.isNotBlank(sqlString)) {
+            return Constants.WHERE + Constants.SPACE + sqlString;
+        } else {
+            return Constants.EMPTY;
+        }
     }
 }

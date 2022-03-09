@@ -9,5 +9,5 @@ public interface SelectBuild<ImplClass> {
     /**
      * 查询内容SQL片段
      */
-    String getSqlSelect();
+    String getSelectSegment();
 }

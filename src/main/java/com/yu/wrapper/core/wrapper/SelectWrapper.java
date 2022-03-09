@@ -25,7 +25,7 @@ public class SelectWrapper extends WhereWrapper<SelectWrapper> implements Lambda
     }
 
     @Override
-    public String getSqlSelect() {
+    public String getSelectSegment() {
         return sqlSelect;
     }
 

@@ -9,5 +9,5 @@ public interface UpdateBuild<ImplClass> {
     /**
      * 更新内容SQL片段
      */
-    String getSqlUpdate();
+    String getUpdateSegment();
 }

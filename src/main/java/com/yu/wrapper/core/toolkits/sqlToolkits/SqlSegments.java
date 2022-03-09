@@ -68,7 +68,7 @@ public class SqlSegments implements SqlString {
         while (SqlKeyword.AND.match(whereSql.get(whereSql.size() - 1)) || SqlKeyword.OR.match(whereSql.get(whereSql.size() - 1))) {
             whereSql.remove(whereSql.size() - 1);
         }
-        return Constants.WHERE + Constants.SPACE + whereSql.stream().map(SqlString::getSqlString).collect(Collectors.joining(Constants.SPACE, Constants.LEFT_BRACKET, Constants.RIGHT_BRACKET));
+        return whereSql.stream().map(SqlString::getSqlString).collect(Collectors.joining(Constants.SPACE, Constants.LEFT_BRACKET, Constants.RIGHT_BRACKET));
     }
 
     protected String groupBySqlSegments() {

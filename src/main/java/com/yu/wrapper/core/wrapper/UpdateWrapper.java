@@ -32,7 +32,7 @@ public class UpdateWrapper extends WhereWrapper<UpdateWrapper> implements Lambda
     }
 
     @Override
-    public String getSqlUpdate() {
+    public String getUpdateSegment() {
         if (CollectionUtil.isEmpty(sqlUpdate)) {
             return null;
         }
